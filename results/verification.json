@@ -1,0 +1,36 @@
+{
+  "started_at": "2026-10-02T23:15:26+0700",
+  "cold_start_seconds": 85.4,
+  "healthy_services": [
+    "airflow-scheduler",
+    "airflow-webserver",
+    "clickhouse",
+    "dbt-docs",
+    "metabase",
+    "minio",
+    "platform-db",
+    "redpanda",
+    "redpanda-console"
+  ],
+  "backup_name": "marts/20261002T161653Z",
+  "web_ui_status": {
+    "airflow": 200,
+    "metabase": 200,
+    "minio-console": 200,
+    "clickhouse-play": 200,
+    "redpanda-console": 200,
+    "dbt-docs": 200
+  },
+  "memory_usage": [
+    "hdp-verify-airflow-webserver-1\t765.8MiB / 768MiB",
+    "hdp-verify-airflow-scheduler-1\t428.5MiB / 1GiB",
+    "hdp-verify-metabase-1\t965.3MiB / 1GiB",
+    "hdp-verify-dbt-docs-1\t30.01MiB / 384MiB",
+    "hdp-verify-redpanda-console-1\t74.54MiB / 128MiB",
+    "hdp-verify-platform-db-1\t103.6MiB / 384MiB",
+    "hdp-verify-clickhouse-1\t166.6MiB / 1.5GiB",
+    "hdp-verify-minio-1\t198.9MiB / 384MiB",
+    "hdp-verify-redpanda-1\t114.1MiB / 768MiB"
+  ],
+  "finished_at": "2026-10-02T23:17:03+0700"
+}

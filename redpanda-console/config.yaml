@@ -1,0 +1,14 @@
+# Redpanda Console. Console v3 does not map array settings from env vars, so
+# configuration lives here. To manage a Kafka Connect cluster from the UI
+# (e.g. postgres-cdc-redpanda's Debezium worker), uncomment kafkaConnect.
+kafka:
+  brokers: ["redpanda:9092"]
+redpanda:
+  adminApi:
+    enabled: true
+    urls: ["http://redpanda:9644"]
+# kafkaConnect:
+#   enabled: true
+#   clusters:
+#     - name: debezium
+#       url: http://connect:8083

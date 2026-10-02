@@ -1,0 +1,6 @@
+.env
+verify.env
+edge/config.yml
+edge/*.json
+__pycache__/
+*.pyc

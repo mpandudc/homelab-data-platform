@@ -1,0 +1,20 @@
+# Copy to edge/config.yml after `cloudflared tunnel create lxc206-data` and put
+# the generated <tunnel-id>.json next to it (both are gitignored).
+# Services are addressed by compose service name on the internal network.
+tunnel: <tunnel-id>
+credentials-file: /etc/cloudflared/<tunnel-id>.json
+
+ingress:
+  - hostname: airflow.cahyo.tech
+    service: http://airflow-webserver:8080
+  - hostname: metabase.cahyo.tech
+    service: http://metabase:3000
+  - hostname: minio.cahyo.tech
+    service: http://minio:9001          # console only; the S3 API stays LAN/Tailscale
+  - hostname: clickhouse.cahyo.tech
+    service: http://clickhouse:8123     # /play SQL UI
+  - hostname: redpanda.cahyo.tech
+    service: http://redpanda-console:8080
+  - hostname: dbt.cahyo.tech
+    service: http://dbt-docs:8080
+  - service: http_status:404
