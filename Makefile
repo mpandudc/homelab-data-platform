@@ -33,6 +33,7 @@ backup:
 
 # Needs .metabase_api_key (Metabase admin API key, chmod 600, gitignored).
 metabase-register:
+	sh scripts/grant_metabase_readers.sh
 	python3 scripts/metabase_register.py
 
 check:

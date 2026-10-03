@@ -31,9 +31,18 @@ def databases(env: dict[str, str]) -> list[dict]:
         "password": env["CLICKHOUSE_METABASE_PASSWORD"],
         "ssl": False,
     }
+    airflow = {
+        "host": "platform-db",
+        "port": 5432,
+        "dbname": "airflow",
+        "user": "metabase_airflow",
+        "password": env["METABASE_AIRFLOW_PASSWORD"],
+        "ssl": False,
+    }
     return [
         {"name": "ClickHouse marts", "engine": "clickhouse", "details": {**clickhouse, "dbname": "marts"}},
         {"name": "ClickHouse ops", "engine": "clickhouse", "details": {**clickhouse, "dbname": "ops"}},
+        {"name": "Airflow metadata", "engine": "postgres", "details": airflow},
     ]
 
 
