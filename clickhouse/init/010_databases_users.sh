@@ -3,6 +3,8 @@
 # dbt-clickhouse-marts and postgres-cdc-redpanda, plus two scoped users:
 #   dbt       read/write on the modelling layers, nothing else
 #   metabase  read-only on marts and ops (BI never sees raw or CDC tables)
+#             readonly = 2, not 1: Metabase's ClickHouse driver sets per-session
+#             settings (async_insert, ...), which readonly = 1 rejects.
 set -euo pipefail
 
 clickhouse client --host 127.0.0.1 --user "$CLICKHOUSE_USER" --password "$CLICKHOUSE_PASSWORD" --multiquery <<SQL
@@ -34,7 +36,7 @@ GRANT SELECT ON cdc.* TO dbt;
 GRANT SELECT ON system.* TO dbt;
 
 CREATE USER IF NOT EXISTS metabase IDENTIFIED WITH sha256_password BY '${CLICKHOUSE_METABASE_PASSWORD}'
-  SETTINGS readonly = 1;
+  SETTINGS readonly = 2;
 GRANT SELECT ON marts.* TO metabase;
 GRANT SELECT ON ops.* TO metabase;
 SQL
