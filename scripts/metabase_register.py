@@ -39,11 +39,27 @@ def databases(env: dict[str, str]) -> list[dict]:
         "password": env["METABASE_AIRFLOW_PASSWORD"],
         "ssl": False,
     }
-    return [
+    specs = [
         {"name": "ClickHouse marts", "engine": "clickhouse", "details": {**clickhouse, "dbname": "marts"}},
         {"name": "ClickHouse ops", "engine": "clickhouse", "details": {**clickhouse, "dbname": "ops"}},
         {"name": "Airflow metadata", "engine": "postgres", "details": airflow},
     ]
+    # Cuantum production DB on LXC 205, reached over Tailscale; role created by
+    # scripts/cuantum_metabase_role.sh. Optional: only when its password exists.
+    if env.get("CUANTUM_METABASE_PASSWORD"):
+        specs.append({
+            "name": "Cuantum trading",
+            "engine": "postgres",
+            "details": {
+                "host": env.get("CUANTUM_DB_HOST", "100.118.65.91"),
+                "port": 5432,
+                "dbname": "trading",
+                "user": "metabase_ro",
+                "password": env["CUANTUM_METABASE_PASSWORD"],
+                "ssl": False,
+            },
+        })
+    return specs
 
 
 class Metabase:
