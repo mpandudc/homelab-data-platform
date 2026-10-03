@@ -1,4 +1,4 @@
-.PHONY: env config up up-core up-edge down ps backup check verify
+.PHONY: env config up up-core up-edge down ps backup metabase-register check verify
 
 PROFILES ?= --profile core --profile stream --profile orchestration --profile bi --profile docs
 COMPOSE = docker compose $(PROFILES)
@@ -30,6 +30,10 @@ ps:
 
 backup:
 	python3 scripts/backup_clickhouse.py backup marts
+
+# Needs .metabase_api_key (Metabase admin API key, chmod 600, gitignored).
+metabase-register:
+	python3 scripts/metabase_register.py
 
 check:
 	PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_project.py

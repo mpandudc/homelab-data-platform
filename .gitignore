@@ -4,3 +4,4 @@ edge/config.yml
 edge/*.json
 __pycache__/
 *.pyc
+.metabase_api_key
